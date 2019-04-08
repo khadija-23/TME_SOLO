@@ -58,6 +58,11 @@ class SuperState(object):
         return v   
 
 
+    @property   
+    def court_vers_balle_anticipation(self): 
+        return (self.ball+(self.ball_vitesse * (0.5*self.ball.distance(self.player))))-self.player
+
+
     @property
     def pos(self):
         if(self.id_team==1):
@@ -65,13 +70,71 @@ class SuperState(object):
         else:
             return Vector2D(settings.GAME_WIDTH/2 +1,self.player.y) 
             
-#    @property
-#    def (self):
-#        if(self.id_team==1):
-#            return Vector2D(settings.GAME_WIDTH/2 -1,self.player.y)  
-#        else:
-#            return Vector2D(settings.GAME_WIDTH/2 +1,self.player.y) 
+    @property
+    def position_oppose_opposant(self):
+        sh=Vector2D(0,0)
+        if(self.id_team==1):
+            x=settings.GAME_WIDTH/2 +30  
+        else:
+            x=settings.GAME_WIDTH/2 -30
+            
+        v=self.position_opposant_lePlusProche
+        if(v.y>(3/4)*settings.GAME_HEIGHT):
+            y=(1/4)*settings.GAME_HEIGHT
+        elif(v.y>(1/2)*settings.GAME_HEIGHT):
+            y=(1/6)*settings.GAME_HEIGHT
+        elif (v.y>(1/4)*settings.GAME_HEIGHT):
+            y=settings.GAME_HEIGHT-(1/6)*settings.GAME_HEIGHT
+        else:#v.y<(1/4)*settings.GAME_HEIGHT)
+            y=(3/4)*settings.GAME_HEIGHT
+        
+        
+        sh=Vector2D(x,y)
+        
+        if((sh-self.player).x>settings.GAME_WIDTH or (sh-self.player).y>settings.GAME_HEIGHT):
+            
+            return sh.normalize()*0.5
+        else:
+           
+            return sh
+        
+        
+    @property
+    def position_oppose_opposant2(self):
+        sh=Vector2D(0,0)
+        if(self.id_team==1):
+            x=settings.GAME_WIDTH/2 +30  
+        else:
+            x=settings.GAME_WIDTH/2 -30
+            
+        v=self.position_opposant_lePlusProche
+        y=settings.GAME_HEIGHT-v.y
+        sh=Vector2D(x,y)
+        
+        if((sh-self.player).x>settings.GAME_WIDTH or (sh-self.player).y>settings.GAME_HEIGHT):
+            
+            return sh.normalize()*0.5
+        else:
+           
+            return sh
+        
+    @property
+    def position_def(self):
+        if(self.id_team==1):
+            return Vector2D(settings.GAME_WIDTH/4,settings.GAME_HEIGHT/2)
+        else:
+            return Vector2D((3/4)*settings.GAME_WIDTH,settings.GAME_HEIGHT/2)
 
+
+    @property
+    def get_limite(self):#retourne la limite du terrain  
+        if(self.id_team==1):
+            return (2/3)*settings.GAME_WIDTH
+        
+        elif(self.id_team==2):
+            return settings.GAME_WIDTH/3
+
+   
 
 class EchauffementStrategy(Strategy):
     def __init__(self):
@@ -91,6 +154,9 @@ class EchauffementStrategy(Strategy):
 
 
 
+
+
+
 # Create teams
 team1 = SoccerTeam(name="Team 1")
 team2 = SoccerTeam(name="Team 2")
@@ -99,10 +165,10 @@ team2 = SoccerTeam(name="Team 2")
 team1.add("Player 1", EchauffementStrategy())  
 team2.add("Player 2", EchauffementStrategy())  
 # Create a match
-simu = VolleySimulation(team1, team2)
+#simu = VolleySimulation(team1, team2)
 
 # Simulate and display the match
-volley_show_simu(simu)
+#volley_show_simu(simu)
 
 
 

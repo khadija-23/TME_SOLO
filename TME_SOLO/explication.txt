@@ -1,2 +1,11 @@
-question1 :
-pour la strategie echauffement, le joueur court vers la balle et shoot vers l'opposant le plus proche, pour cela on a une fonction "position_opposant_lePlusProche" qui retourne la position de l'opposant le plus proche   
+/////question1 :
+pour la strategie echauffement, le joueur court vers la balle et shoot vers l'opposant le plus proche, pour cela on a une fonction "position_opposant_lePlusProche" qui retourne la position de l'opposant le plus proche  
+
+
+/////question2 :
+pour la strategie attaquant, le joueur doit lancer la balle de l'autre coté du terrain, à la position qui est al moitié du terrain +20 (ou -20 si equipe 2) pour le x et à l'opposé de l'opposant le plus proche, c'est-à-dire que le y est GAME_HEIGHT-y_opposant. On utilise la fonction "position_oppose_opposant2" pour cela. Ensuite on verifie si ce nouveau vecteur créé se trouve bien dans le terrain, si ce n'est pas le cas on verifie si c'est vrai lorsqu'on normalise ce vecteur, si c'est vrai on l'applique, sinon on ne fait que courir vers la balle.
+
+////question3 :
+pour la strategie defenseur, si la balle se trouve entre la moitie du terrain et la moitie du terrain adverse alors le defenseur court vers la balle et essaye de 'envoyer la plus loin possible en verifiant si la balle ne sort pas du terrain sinon il se place au milieu de son terrain 
+
+
