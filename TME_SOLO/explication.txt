@@ -1,0 +1,2 @@
+question1 :
+pour la strategie echauffement, le joueur court vers la balle et shoot vers l'opposant le plus proche, pour cela on a une fonction "position_opposant_lePlusProche" qui retourne la position de l'opposant le plus proche   
